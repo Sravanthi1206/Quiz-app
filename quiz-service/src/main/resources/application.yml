@@ -1,0 +1,15 @@
+spring:
+  cloud:
+    circuitbreaker:
+      resilience4j:
+        enabled: true
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      myCB:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 5s
+        permittedNumberOfCallsInHalfOpenState: 3

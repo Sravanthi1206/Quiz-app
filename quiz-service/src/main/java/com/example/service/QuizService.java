@@ -16,7 +16,8 @@ public class QuizService {
 
     private final RestTemplate restTemplate;
 
-    @CircuitBreaker(name = "questionServiceCB", fallbackMethod = "fallback")
+   
+    @CircuitBreaker(name = "questionServiceCB", fallbackMethod = "fallbackGetQuestions")
     public List<QuestionDto> getQuestions(String quizId) {
 
         String url = "http://question-service/questions/by-quiz/" + quizId;
@@ -29,7 +30,20 @@ public class QuizService {
         return Arrays.asList(result);
     }
 
-    public List<QuestionDto> fallback(String quizId, Throwable t) {
+    // Fallback for getQuestions
+    public List<QuestionDto> fallbackGetQuestions(String quizId, Throwable t) {
         return Collections.emptyList();
+    }
+
+
+   
+    @CircuitBreaker(name = "myCB", fallbackMethod = "fallbackCallDownstream")
+    public String callDownstream() {
+        return restTemplate.getForObject("http://question-service/api", String.class);
+    }
+
+    // Fallback for callDownstream
+    public String fallbackCallDownstream(Throwable t) {
+        return "fallback response";
     }
 }
