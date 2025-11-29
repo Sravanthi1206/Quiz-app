@@ -47,12 +47,6 @@
       <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
     </dependency>
     
-    <dependency>
-    <groupId>com.netflix.eureka</groupId>
-    <artifactId>eureka-client</artifactId>
-    <version>1.10.17</version>
-   </dependency>
-
 
     <!-- Validation provider (Hibernate Validator) -->
     <dependency>
